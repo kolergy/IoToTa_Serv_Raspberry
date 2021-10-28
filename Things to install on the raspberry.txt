@@ -1,0 +1,25 @@
+# add the InfluxDB repository key to our Raspberry Pi 
+wget -qO- https://repos.influxdata.com/influxdb.key | sudo apt-key add -
+# Add the repository to the sources list
+echo "deb https://repos.influxdata.com/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
+
+sudo wget http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key
+sudo apt-key add mosquitto-repo.gpg.key
+cd /etc/apt/sources.list.d/
+sudo wget http://repo.mosquitto.org/debian/mosquitto-buster.list
+cd
+
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get dist-upgrade
+
+sudo apt-get install python3-pip
+
+sudo apt install influxdb
+sudo systemctl unmask influxdb
+sudo systemctl enable influxdb
+sudo systemctl start influxdb
+
+
+pip3 install paho-mqtt   # mqtt from python
+pip3 install influxdb
